@@ -6,8 +6,11 @@ A simple task management application built for a technical assignment.
 
 ## Preview & Demo
 
-- image
-- Video:
+- Video: https://drive.google.com/file/d/1nv5iB5jJwpW2je1vzTFmW42P2TNyjzQk/view?usp=drive_link
+<img width="1919" height="959" alt="image" src="https://github.com/user-attachments/assets/5b2eba25-3aec-4ee9-8ea1-7e671e7575b1" />
+<img width="1919" height="959" alt="image" src="https://github.com/user-attachments/assets/89967ffd-3ea7-4775-a1ed-274b4574225d" />
+
+
 
 ---
 
