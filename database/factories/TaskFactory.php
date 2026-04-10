@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\TaskSeverity;
+use App\Enums\TaskStatus;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,11 +23,26 @@ class TaskFactory extends Factory
         return [
             'title'       => fake()->sentence(3),
             'description' => fake()->paragraph(),
-            'severity'    => fake()->randomElement(['low', 'medium', 'high']),
-            'status'      => fake()->randomElement(['pending', 'in progress', 'completed']),
+            'severity'    => fake()->randomElement(TaskSeverity::cases()),
+            'status'      => fake()->randomElement(TaskStatus::cases()),
             'due_date'    => fake()->dateTimeBetween('now', '+1 month'),
-            'assigned_to' => User::pluck('id')->random(),
-            'created_by'  => User::pluck('id')->random(),
+            'assigned_to' => User::factory(),
+            'created_by'  => User::factory(),
         ];
+    }
+
+
+    /**
+     * Configure the model factory.
+     */
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Task $task) {
+            if (! $task->task_code) {
+                $task->updateQuietly([
+                    'task_code' => 'TASK-'.str_pad($task->id, 4, '0', STR_PAD_LEFT),
+                ]);
+            }
+        });
     }
 }

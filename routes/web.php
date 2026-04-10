@@ -1,17 +1,13 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::get('/', function () {
     return redirect()->to('/dashboard');
 });
 
+Route::get('/dashboard', [DashboardController::class, 'summary']);
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-});
-
-Route::get('/tasks', function () {
-    return Inertia::render('TasksList');
-});
+Route::resource('tasks', TaskController::class);

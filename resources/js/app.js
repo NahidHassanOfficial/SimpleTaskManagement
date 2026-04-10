@@ -13,3 +13,6 @@ createInertiaApp({
             .mount(el);
     },
 });
+
+
+

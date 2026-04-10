@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\TaskSeverity;
+use App\Enums\TaskStatus;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -35,9 +37,21 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        return [
-            ...parent::share($request),
-            //
-        ];
+        return array_merge(parent::share($request), [
+            'enums' => [
+                'statuses' => collect(TaskStatus::cases())->map(fn ($status) => [
+                    'value' => $status->value,
+                    'label' => $status->label(),
+                    'color' => $status->color(),
+                    'icon' => $status->icon(),
+                ]),
+                'severities' => collect(TaskSeverity::cases())->map(fn ($severity) => [
+                    'value' => $severity->value,
+                    'label' => $severity->label(),
+                    'color' => $severity->color(),
+                ]),
+            ],
+        ]);
+
     }
 }
